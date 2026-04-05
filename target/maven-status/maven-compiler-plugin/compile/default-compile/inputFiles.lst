@@ -23,9 +23,12 @@ D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\LoginRequest.ja
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\LoginResponse.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\ReservaRequest.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\ReservaResponse.java
+D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\AdminConfig.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\Asiento.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\Destino.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\Reserva.java
+D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\exception\NotFoundException.java
+D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\repository\AdminConfigRepository.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\repository\AsientoRepository.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\repository\DestinoRepository.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\repository\ReservaRepository.java

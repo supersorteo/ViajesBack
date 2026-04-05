@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import viajes.demo.entity.Asiento;
+import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class AsientoService {
 
     public Asiento findById(Long id) {
         return asientoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Asiento no encontrado: " + id));
+                .orElseThrow(() -> new NotFoundException("Asiento no encontrado: " + id));
     }
 
     @Transactional
@@ -45,7 +46,7 @@ public class AsientoService {
 
     private Asiento cambiarEstado(Long destinoId, int numero, Asiento.AsientoEstado estado) {
         Asiento asiento = asientoRepository.findByDestinoIdAndNumero(destinoId, numero)
-                .orElseThrow(() -> new RuntimeException("Asiento no encontrado: " + numero));
+                .orElseThrow(() -> new NotFoundException("Asiento no encontrado: " + numero));
         asiento.setEstado(estado);
         return asientoRepository.save(asiento);
     }

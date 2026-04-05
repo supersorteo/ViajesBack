@@ -49,4 +49,18 @@ public class AuthController {
         credentialsStore.update(request.nuevoUsername(), request.nuevaPassword());
         return ResponseEntity.ok(Map.of("username", request.nuevoUsername()));
     }
+
+    @GetMapping("/admin/credenciales")
+    public ResponseEntity<Map<String, String>> getCredenciales() {
+        return ResponseEntity.ok(Map.of(
+                "username", credentialsStore.getUsername(),
+                "password", credentialsStore.getPassword()
+        ));
+    }
+
+    @DeleteMapping("/admin/credenciales")
+    public ResponseEntity<Map<String, String>> resetCredenciales() {
+        credentialsStore.reset();
+        return ResponseEntity.ok(Map.of("message", "Credenciales reseteadas a los valores por defecto"));
+    }
 }

@@ -7,6 +7,7 @@ import viajes.demo.dto.ReservaRequest;
 import viajes.demo.entity.Asiento;
 import viajes.demo.entity.Destino;
 import viajes.demo.entity.Reserva;
+import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
 import viajes.demo.repository.ReservaRepository;
 
@@ -22,16 +23,16 @@ public class ReservaService {
     private final DestinoService destinoService;
 
     public List<Reserva> findAll() {
-        return reservaRepository.findAll();
+        return reservaRepository.findAllWithDestino();
     }
 
     public List<Reserva> findByDestino(Long destinoId) {
-        return reservaRepository.findByDestinoId(destinoId);
+        return reservaRepository.findAllByDestinoIdWithDestino(destinoId);
     }
 
     public Reserva findById(Long id) {
         return reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada: " + id));
+                .orElseThrow(() -> new NotFoundException("Reserva no encontrada: " + id));
     }
 
     @Transactional
@@ -46,7 +47,7 @@ public class ReservaService {
 
         Asiento asiento = asientoRepository
                 .findByDestinoIdAndNumero(request.destinoId(), request.numeroAsiento())
-                .orElseThrow(() -> new RuntimeException("Asiento no encontrado: " + request.numeroAsiento()));
+                .orElseThrow(() -> new NotFoundException("Asiento no encontrado: " + request.numeroAsiento()));
         asiento.setEstado(Asiento.AsientoEstado.OCUPADO);
         asientoRepository.save(asiento);
 

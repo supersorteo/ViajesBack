@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import viajes.demo.dto.DestinoRequest;
 import viajes.demo.entity.Asiento;
 import viajes.demo.entity.Destino;
+import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
 import viajes.demo.repository.DestinoRepository;
 
@@ -30,7 +31,7 @@ public class DestinoService {
 
     public Destino findById(Long id) {
         return destinoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Destino no encontrado: " + id));
+                .orElseThrow(() -> new NotFoundException("Destino no encontrado: " + id));
     }
 
     @Transactional

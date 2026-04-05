@@ -21,7 +21,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(adminAuthInterceptor)
-                .addPathPatterns("/api/admin/**");
+                .addPathPatterns("/api/admin/**")
+                // Excluido temporalmente para pruebas en Postman sin token
+                // Para re-activar: elimina esta línea
+                .excludePathPatterns("/api/admin/credenciales");
     }
 
     @Override

@@ -13,6 +13,7 @@ viajes\demo\service\ImagenUploadService.class
 viajes\demo\entity\Asiento.class
 viajes\demo\dto\EstadoReservaRequest.class
 viajes\demo\controller\ImagenController.class
+viajes\demo\repository\AdminConfigRepository.class
 viajes\demo\dto\ReservaResponse.class
 viajes\demo\config\AdminTokenStore.class
 viajes\demo\service\DestinoService.class
@@ -20,6 +21,7 @@ viajes\demo\controller\AdminReservaController.class
 viajes\demo\service\CloudinaryImagenUploadService.class
 viajes\demo\config\AdminCredentialsStore.class
 viajes\demo\dto\DestinoResponse.class
+viajes\demo\exception\NotFoundException.class
 viajes\demo\controller\DestinoController.class
 viajes\demo\repository\ReservaRepository.class
 viajes\demo\config\CloudinaryProperties.class
@@ -28,6 +30,7 @@ viajes\demo\service\LocalImagenUploadService.class
 viajes\demo\config\AdminProperties.class
 viajes\demo\controller\AuthController.class
 viajes\demo\DemoApplication.class
+viajes\demo\entity\AdminConfig.class
 viajes\demo\config\AdminAuthInterceptor.class
 viajes\demo\repository\DestinoRepository.class
 viajes\demo\entity\Asiento$AsientoEstado.class

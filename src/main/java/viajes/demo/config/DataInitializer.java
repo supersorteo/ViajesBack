@@ -23,43 +23,27 @@ public class DataInitializer {
 
     @Bean
     CommandLineRunner initData() {
+        // Datos de prueba comentados — la app ahora es completamente dinámica.
+        // Los destinos se gestionan desde el panel de administración.
+        return args -> {};
+
+        /* Datos estáticos originales (no eliminar, son referencia)
         return args -> {
             if (destinoRepository.count() > 0) return;
 
             List<Destino> destinos = List.of(
-                crearDestino(
-                    "Chascomús",
-                    "Disfrutá de un fin de semana increíble en la laguna. Transporte de primera línea con todas las comodidades. Servicio directo sin escalas. Incluye equipaje de mano.",
+                crearDestino("Chascomús",
+                    "Disfrutá de un fin de semana increíble en la laguna...",
                     "https://images.unsplash.com/photo-1549646462-8e36d4bdce23?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    15000.0,
-                    LocalDate.of(2025, 11, 15),
-                    LocalTime.of(8, 0),
-                    LocalTime.of(10, 30),
-                    "Ida y Vuelta",
-                    true
-                ),
-                crearDestino(
-                    "Mar del Plata",
-                    "Viaje Especial Fin de Semana Largo. Disfruta de las mejores playas del Atlántico.",
+                    15000.0, LocalDate.of(2025, 11, 15), LocalTime.of(8, 0), LocalTime.of(10, 30), "Ida y Vuelta", true),
+                crearDestino("Mar del Plata",
+                    "Viaje Especial Fin de Semana Largo...",
                     "https://images.unsplash.com/photo-1596423735880-5ffdf52e463a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    25000.0,
-                    LocalDate.of(2025, 11, 22),
-                    LocalTime.of(6, 0),
-                    LocalTime.of(11, 0),
-                    "Especial",
-                    false
-                ),
-                crearDestino(
-                    "Córdoba Capital",
-                    "Sierras y relax en un servicio Premium. Conocé la Docta con todo el confort.",
+                    25000.0, LocalDate.of(2025, 11, 22), LocalTime.of(6, 0), LocalTime.of(11, 0), "Especial", false),
+                crearDestino("Córdoba Capital",
+                    "Sierras y relax en un servicio Premium...",
                     "https://images.unsplash.com/photo-1621285090176-9d33b3793fdf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    32000.0,
-                    LocalDate.of(2025, 12, 5),
-                    LocalTime.of(22, 30),
-                    LocalTime.of(8, 0),
-                    "Premium",
-                    false
-                )
+                    32000.0, LocalDate.of(2025, 12, 5), LocalTime.of(22, 30), LocalTime.of(8, 0), "Premium", false)
             );
 
             for (Destino destino : destinos) {
@@ -67,6 +51,7 @@ public class DataInitializer {
                 generarAsientos(saved);
             }
         };
+        */
     }
 
     private Destino crearDestino(String nombre, String descripcion, String imagenUrl,

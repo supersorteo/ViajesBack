@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${cors.allowed-origins:http://localhost:4200}")
     private String allowedOrigins;
 
-    @Override
+    @Override 
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(adminAuthInterceptor)
                 .addPathPatterns("/api/admin/**")

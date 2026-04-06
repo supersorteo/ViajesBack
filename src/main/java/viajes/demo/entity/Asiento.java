@@ -26,6 +26,6 @@ public class Asiento {
     private Destino destino;
 
     public enum AsientoEstado {
-        DISPONIBLE, OCUPADO
+        DISPONIBLE, OCUPADO, INACTIVO
     }
 }

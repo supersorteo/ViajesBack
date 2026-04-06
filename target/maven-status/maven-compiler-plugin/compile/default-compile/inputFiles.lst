@@ -5,6 +5,7 @@ D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\AdminTokenSt
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\CloudinaryConfig.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\CloudinaryProperties.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\DataInitializer.java
+D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\SchemaConstraintUpdater.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\config\WebConfig.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\controller\AdminDestinoController.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\controller\AdminReservaController.java
@@ -23,6 +24,7 @@ D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\LoginRequest.ja
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\LoginResponse.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\ReservaRequest.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\ReservaResponse.java
+D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\dto\ResetAsientosResponse.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\AdminConfig.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\Asiento.java
 D:\DANILO\NUAVAAPP\viajesback\demo\src\main\java\viajes\demo\entity\Destino.java

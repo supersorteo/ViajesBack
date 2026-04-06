@@ -1,5 +1,6 @@
 viajes\demo\config\CloudinaryConfig.class
 viajes\demo\config\WebConfig.class
+viajes\demo\dto\ResetAsientosResponse.class
 viajes\demo\service\AsientoService.class
 viajes\demo\controller\ReservaController.class
 viajes\demo\repository\AsientoRepository.class
@@ -41,3 +42,4 @@ viajes\demo\entity\Reserva$ReservaEstado.class
 viajes\demo\controller\AdminDestinoController.class
 viajes\demo\dto\DestinoRequest.class
 viajes\demo\dto\CambiarCredencialesRequest.class
+viajes\demo\config\SchemaConstraintUpdater.class

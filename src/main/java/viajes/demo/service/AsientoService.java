@@ -3,9 +3,12 @@ package viajes.demo.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import viajes.demo.dto.ResetAsientosResponse;
 import viajes.demo.entity.Asiento;
+import viajes.demo.entity.Reserva;
 import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
+import viajes.demo.repository.ReservaRepository;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
 public class AsientoService {
 
     private final AsientoRepository asientoRepository;
+    private final ReservaRepository reservaRepository;
 
     public List<Asiento> findByDestino(Long destinoId) {
         return asientoRepository.findByDestinoIdOrderByNumero(destinoId);
@@ -36,13 +40,21 @@ public class AsientoService {
     }
 
     @Transactional
-    public List<Asiento> resetearAsientos(Long destinoId) {
-        List<Asiento> asientos = asientoRepository.findByDestinoIdOrderByNumero(destinoId);
-        asientos.forEach(a -> a.setEstado(Asiento.AsientoEstado.DISPONIBLE));
-        return asientoRepository.saveAll(asientos);
-    }
+    public ResetAsientosResponse resetearAsientos(Long destinoId) {
+        List<Reserva> reservas = reservaRepository.findByDestinoId(destinoId);
+        int reservasEliminadas = reservas.size();
+        if (!reservas.isEmpty()) {
+            reservaRepository.deleteAllInBatch(reservas);
+        }
 
-    // ── Helper ───────────────────────────────────────────────────────────────
+        List<Asiento> asientos = asientoRepository.findByDestinoIdOrderByNumero(destinoId);
+        for (Asiento asiento : asientos) {
+            asiento.setEstado(Asiento.AsientoEstado.DISPONIBLE);
+        }
+        asientoRepository.saveAll(asientos);
+
+        return new ResetAsientosResponse(asientos.size(), asientos.size(), reservasEliminadas);
+    }
 
     private Asiento cambiarEstado(Long destinoId, int numero, Asiento.AsientoEstado estado) {
         Asiento asiento = asientoRepository.findByDestinoIdAndNumero(destinoId, numero)

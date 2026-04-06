@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import viajes.demo.dto.DestinoRequest;
 import viajes.demo.dto.DestinoResponse;
+import viajes.demo.dto.ResetAsientosResponse;
 import viajes.demo.service.AsientoService;
 import viajes.demo.service.DestinoService;
 
@@ -40,7 +41,7 @@ public class AdminDestinoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DestinoResponse> update(@PathVariable Long id,
-                                                   @Valid @RequestBody DestinoRequest request) {
+                                                  @Valid @RequestBody DestinoRequest request) {
         return ResponseEntity.ok(DestinoResponse.from(destinoService.update(id, request)));
     }
 
@@ -56,8 +57,7 @@ public class AdminDestinoController {
     }
 
     @PostMapping("/{id}/resetear-asientos")
-    public ResponseEntity<Void> resetearAsientos(@PathVariable Long id) {
-        asientoService.resetearAsientos(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ResetAsientosResponse> resetearAsientos(@PathVariable Long id) {
+        return ResponseEntity.ok(asientoService.resetearAsientos(id));
     }
 }

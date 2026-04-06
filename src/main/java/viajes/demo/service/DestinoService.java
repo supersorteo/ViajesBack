@@ -9,6 +9,7 @@ import viajes.demo.entity.Destino;
 import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
 import viajes.demo.repository.DestinoRepository;
+import viajes.demo.repository.ReservaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class DestinoService {
 
     private final DestinoRepository destinoRepository;
     private final AsientoRepository asientoRepository;
+    private final ReservaRepository reservaRepository;
 
     public List<Destino> findAll() {
         return destinoRepository.findAll();
@@ -51,6 +53,11 @@ public class DestinoService {
     @Transactional
     public void delete(Long id) {
         Destino destino = findById(id);
+        if (reservaRepository.existsByDestinoId(id)) {
+            throw new IllegalStateException(
+                    "No se puede eliminar el destino porque tiene reservas activas. Resetea los asientos para liberar esas reservas."
+            );
+        }
         destinoRepository.delete(destino);
     }
 

@@ -11,12 +11,17 @@ import viajes.demo.exception.NotFoundException;
 import viajes.demo.repository.AsientoRepository;
 import viajes.demo.repository.ReservaRepository;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ReservaService {
+
+    private static final Set<Reserva.ReservaEstado> ESTADOS_ACTIVOS =
+            EnumSet.of(Reserva.ReservaEstado.PENDIENTE, Reserva.ReservaEstado.CONFIRMADA);
 
     private final ReservaRepository reservaRepository;
     private final AsientoRepository asientoRepository;
@@ -39,17 +44,13 @@ public class ReservaService {
     public Reserva crear(ReservaRequest request) {
         Destino destino = destinoService.findById(request.destinoId());
 
-        boolean yaTomado = reservaRepository.existsByDestinoIdAndNumeroAsiento(
-                request.destinoId(), request.numeroAsiento());
+        boolean yaTomado = reservaRepository.existsByDestinoIdAndNumeroAsientoAndEstadoIn(
+                request.destinoId(), request.numeroAsiento(), ESTADOS_ACTIVOS);
         if (yaTomado) {
-            throw new IllegalStateException("El asiento " + request.numeroAsiento() + " ya está reservado.");
+            throw new IllegalStateException("El asiento " + request.numeroAsiento() + " ya esta reservado.");
         }
 
-        Asiento asiento = asientoRepository
-                .findByDestinoIdAndNumero(request.destinoId(), request.numeroAsiento())
-                .orElseThrow(() -> new NotFoundException("Asiento no encontrado: " + request.numeroAsiento()));
-        asiento.setEstado(Asiento.AsientoEstado.OCUPADO);
-        asientoRepository.save(asiento);
+        ocuparAsiento(request.destinoId(), request.numeroAsiento());
 
         Reserva reserva = new Reserva();
         reserva.setDestino(destino);
@@ -62,9 +63,24 @@ public class ReservaService {
     @Transactional
     public Reserva cambiarEstado(Long id, Reserva.ReservaEstado nuevoEstado) {
         Reserva reserva = findById(id);
+        Reserva.ReservaEstado estadoActual = reserva.getEstado();
 
-        if (nuevoEstado == Reserva.ReservaEstado.CANCELADA
-                && reserva.getEstado() != Reserva.ReservaEstado.CANCELADA) {
+        if (estadoActual == nuevoEstado) {
+            return reserva;
+        }
+
+        if (!esEstadoActivo(estadoActual) && esEstadoActivo(nuevoEstado)) {
+            boolean yaTomado = reservaRepository.existsByDestinoIdAndNumeroAsientoAndEstadoInAndIdNot(
+                    reserva.getDestino().getId(),
+                    reserva.getNumeroAsiento(),
+                    ESTADOS_ACTIVOS,
+                    reserva.getId()
+            );
+            if (yaTomado) {
+                throw new IllegalStateException("No se puede reactivar la reserva porque el asiento ya esta ocupado.");
+            }
+            ocuparAsiento(reserva.getDestino().getId(), reserva.getNumeroAsiento());
+        } else if (esEstadoActivo(estadoActual) && !esEstadoActivo(nuevoEstado)) {
             liberarAsiento(reserva);
         }
 
@@ -75,20 +91,30 @@ public class ReservaService {
     @Transactional
     public void delete(Long id) {
         Reserva reserva = findById(id);
-        if (reserva.getEstado() == Reserva.ReservaEstado.CONFIRMADA) {
+        if (esEstadoActivo(reserva.getEstado())) {
             liberarAsiento(reserva);
         }
         reservaRepository.delete(reserva);
     }
 
-    // ── Helper ───────────────────────────────────────────────────────────────
+    private boolean esEstadoActivo(Reserva.ReservaEstado estado) {
+        return ESTADOS_ACTIVOS.contains(estado);
+    }
+
+    private void ocuparAsiento(Long destinoId, int numeroAsiento) {
+        Asiento asiento = asientoRepository
+                .findByDestinoIdAndNumero(destinoId, numeroAsiento)
+                .orElseThrow(() -> new NotFoundException("Asiento no encontrado: " + numeroAsiento));
+        asiento.setEstado(Asiento.AsientoEstado.OCUPADO);
+        asientoRepository.save(asiento);
+    }
 
     private void liberarAsiento(Reserva reserva) {
         asientoRepository
                 .findByDestinoIdAndNumero(reserva.getDestino().getId(), reserva.getNumeroAsiento())
-                .ifPresent(a -> {
-                    a.setEstado(Asiento.AsientoEstado.DISPONIBLE);
-                    asientoRepository.save(a);
+                .ifPresent(asiento -> {
+                    asiento.setEstado(Asiento.AsientoEstado.DISPONIBLE);
+                    asientoRepository.save(asiento);
                 });
     }
 }

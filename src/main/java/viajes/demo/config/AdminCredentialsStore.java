@@ -38,6 +38,37 @@ public class AdminCredentialsStore {
         return getOrCreate().getPassword();
     }
 
+    private static final String DEFAULT_HEADER_BG =
+            "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1920&q=80";
+
+    public String getHeaderBgUrl() {
+        String url = getOrCreate().getHeaderBgUrl();
+        return url != null ? url : DEFAULT_HEADER_BG;
+    }
+
+    public String getHeaderBgUrlAnterior() {
+        return getOrCreate().getHeaderBgUrlAnterior();
+    }
+
+    public void updateHeaderBgUrl(String url) {
+        AdminConfig cfg = getOrCreate();
+        // Guarda la actual como anterior antes de reemplazarla
+        cfg.setHeaderBgUrlAnterior(cfg.getHeaderBgUrl() != null ? cfg.getHeaderBgUrl() : DEFAULT_HEADER_BG);
+        cfg.setHeaderBgUrl(url);
+        configRepository.save(cfg);
+    }
+
+    public String revertirHeaderBgUrl() {
+        AdminConfig cfg = getOrCreate();
+        String anterior = cfg.getHeaderBgUrlAnterior();
+        if (anterior == null) anterior = DEFAULT_HEADER_BG;
+        // Intercambia actual <-> anterior
+        cfg.setHeaderBgUrlAnterior(cfg.getHeaderBgUrl());
+        cfg.setHeaderBgUrl(anterior);
+        configRepository.save(cfg);
+        return anterior;
+    }
+
     public void reset() {
         AdminConfig cfg = getOrCreate();
         cfg.setUsername(props.username());

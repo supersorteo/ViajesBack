@@ -21,4 +21,10 @@ public class AdminConfig {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(length = 1000)
+    private String headerBgUrl;
+
+    @Column(length = 1000)
+    private String headerBgUrlAnterior;
 }

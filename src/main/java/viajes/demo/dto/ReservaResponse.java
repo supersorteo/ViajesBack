@@ -10,7 +10,8 @@ public record ReservaResponse(
         String destinoNombre,
         int numeroAsiento,
         String nombrePasajero,
-        String email,
+        String telefono,
+        String dni,
         String estado,
         LocalDateTime fechaCreacion
 ) {
@@ -21,7 +22,8 @@ public record ReservaResponse(
                 r.getDestino().getNombre(),
                 r.getNumeroAsiento(),
                 r.getNombrePasajero(),
-                r.getEmail(),
+                r.getTelefono(),
+                r.getDni(),
                 r.getEstado().name(),
                 r.getFechaCreacion()
         );

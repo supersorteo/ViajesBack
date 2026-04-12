@@ -1,8 +1,8 @@
 package viajes.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,9 +27,13 @@ public class Reserva {
     @NotBlank
     private String nombrePasajero;
 
-    @Email
     @NotBlank
-    private String email;
+    @Pattern(regexp = "^[+\\d][\\d\\s\\-\\.\\(\\)]{6,18}$")
+    private String telefono;
+
+    @NotBlank
+    @Pattern(regexp = "^\\d{7,8}$")
+    private String dni;
 
     @Enumerated(EnumType.STRING)
     private ReservaEstado estado = ReservaEstado.CONFIRMADA;

@@ -22,6 +22,7 @@ viajes\demo\controller\AdminReservaController.class
 viajes\demo\service\CloudinaryImagenUploadService.class
 viajes\demo\config\AdminCredentialsStore.class
 viajes\demo\dto\DestinoResponse.class
+viajes\demo\controller\AparienciaController.class
 viajes\demo\exception\NotFoundException.class
 viajes\demo\controller\DestinoController.class
 viajes\demo\repository\ReservaRepository.class

@@ -56,7 +56,8 @@ public class ReservaService {
         reserva.setDestino(destino);
         reserva.setNumeroAsiento(request.numeroAsiento());
         reserva.setNombrePasajero(request.nombrePasajero());
-        reserva.setEmail(request.email());
+        reserva.setTelefono(request.telefono());
+        reserva.setDni(request.dni());
         return reservaRepository.save(reserva);
     }
 

@@ -36,7 +36,7 @@ public class ReservaService {
     }
 
     public Reserva findById(Long id) {
-        return reservaRepository.findById(id)
+        return reservaRepository.findByIdWithDestino(id)
                 .orElseThrow(() -> new NotFoundException("Reserva no encontrada: " + id));
     }
 

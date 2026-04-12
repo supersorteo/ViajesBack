@@ -13,6 +13,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     @Query("SELECT r FROM Reserva r JOIN FETCH r.destino")
     List<Reserva> findAllWithDestino();
 
+    @Query("SELECT r FROM Reserva r JOIN FETCH r.destino WHERE r.id = :id")
+    java.util.Optional<Reserva> findByIdWithDestino(@Param("id") Long id);
+
     @Query("SELECT r FROM Reserva r JOIN FETCH r.destino WHERE r.destino.id = :destinoId")
     List<Reserva> findAllByDestinoIdWithDestino(@Param("destinoId") Long destinoId);
 
